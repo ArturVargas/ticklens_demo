@@ -1,25 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Route, Routes, Navigate, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
+import Home from './Pages/Home';
+import { DASHBOARD_ROUTE, EXPLORE_ROUTE, HOME_ROUTE, NEW_TICKET_ROUTE } from './utils/Constants/routes_constants';
+import Dashboard from './Pages/Dashboard';
+import Explore from './Pages/Explore';
+import NewTicket from './Pages/New_Ticket';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path={ HOME_ROUTE } element={<Home />} />
+        <Route path={ DASHBOARD_ROUTE } element={<Dashboard />} />
+        <Route path={ EXPLORE_ROUTE } element={<Explore />} />
+        <Route path={ NEW_TICKET_ROUTE } element={<NewTicket />} />
+        <Route path="*" element={<Navigate to={ HOME_ROUTE } />} />
+      </Routes>
+    </>
   );
 }
 
