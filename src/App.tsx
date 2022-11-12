@@ -7,10 +7,12 @@ import { DASHBOARD_ROUTE, EXPLORE_ROUTE, HOME_ROUTE, NEW_TICKET_ROUTE } from './
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Explore from './Pages/Explore/Explore';
 import NewTicket from './Pages/New_Ticket/New_Ticket';
+import Navbar from './Components/Navbar/Navbar';
 
 function App() {
   return (
     <>
+      <Navbar/>
       <Routes>
         <Route path={ HOME_ROUTE } element={<Home />} />
         <Route path={ DASHBOARD_ROUTE } element={<Dashboard />} />
