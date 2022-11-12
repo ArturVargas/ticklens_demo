@@ -2,11 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import { Route, Routes, Navigate, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
-import Home from './Pages/Home';
+import Home from './Pages/Home/Home';
 import { DASHBOARD_ROUTE, EXPLORE_ROUTE, HOME_ROUTE, NEW_TICKET_ROUTE } from './utils/Constants/routes_constants';
-import Dashboard from './Pages/Dashboard';
-import Explore from './Pages/Explore';
-import NewTicket from './Pages/New_Ticket';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Explore from './Pages/Explore/Explore';
+import NewTicket from './Pages/New_Ticket/New_Ticket';
 
 function App() {
   return (
