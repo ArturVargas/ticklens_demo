@@ -1,4 +1,7 @@
+
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,15 +15,21 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { EXPLORE_ROUTE, HOME_ROUTE } from '../../utils/Constants/routes_constants';
-import { NavLink } from 'react-router-dom';
 
-const pages = [{name : 'Home', route : HOME_ROUTE}, {name : 'Explore', route : EXPLORE_ROUTE}];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { useAccount } from 'wagmi';
+
+import { EXPLORE_ROUTE, HOME_ROUTE } from '../../utils/Constants/routes_constants';
+import WalletConnectButton from '../wallet-connect-button/Wallet-connect-button';
+
+//style
+require('./Navbar.css');
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const {isConnected} = useAccount();
+  const pages = [{name : 'Home', route : HOME_ROUTE}, {name : 'Explore', route : EXPLORE_ROUTE}];
+  const settings = ['Profile', 'Account', 'Dashboard'];
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -38,28 +47,15 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* LOGO PANTALLA FULL */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Typography sx={{ mr: 2, textDecoration: 'none', display: { xs: 'none', md: 'flex' } }}/>
+          {/* LOGO PANTALLA FULL */}
 
+          {/* OPCIONES MID  */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -92,32 +88,19 @@ function Navbar() {
               {pages.map(({name, route}, index) => (
                 <NavLink className="nav-link" to={route} key={name + index}>
                   <MenuItem>
-                    <Typography textAlign="center">{name}</Typography>
+                    <Typography onClick={handleCloseNavMenu} textAlign="center">{name}</Typography>
                   </MenuItem>
                 </NavLink>
               ))}
             </Menu>
           </Box>
-                        {/* TODO IMPLEMENTAR BOTON DE CONECTAR WALLET */}
+          {/* OPCIONES MID  */}
+
+          {/* LOGO PANTALLA SMALL */}
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+          <Typography noWrap sx={{ mr: 2, display: { xs: 'flex', md: 'none' }, flexGrow: 1  }} />
+
+          {/* OPCIONES PANTALLA SMALL */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(({name, route}, index) => (
               <NavLink className="nav-link" to={route} key={name + index }>
@@ -130,35 +113,44 @@ function Navbar() {
               </NavLink>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting, index) => (
-                <MenuItem key={setting + index + Math.random().toString()} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {/* OPCIONES PANTALLA SMALL */}
+
+          {/* BOTON PERFIL TODO : CAMBIAR POR LOGIN*/}
+            <WalletConnectButton />
+            { isConnected ?
+              <Box sx={{ flexGrow: 0, p: 2 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting, index) => (
+                  <MenuItem key={setting + index} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+              </Box>
+              : 
+              null
+            }
+          {/* BOTON PERFIL */}
         </Toolbar>
       </Container>
     </AppBar>
