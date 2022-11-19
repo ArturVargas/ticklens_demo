@@ -9,11 +9,11 @@ function DocumentationButton() {
   return (
     <>
     <NavLink className="nav-link" to={DOCUMENTATION}>
-      <button class="learn-more">
-        <span class="circle" aria-hidden="true">
-        <span class="icon arrow"></span>
+      <button className="learn-more">
+        <span className="circle" aria-hidden="true">
+        <span className="icon arrow"></span>
         </span>
-        <span class="button-text">Documentation</span>
+        <span className="button-text">Documentation</span>
       </button>
     </NavLink>
     </>

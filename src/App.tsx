@@ -13,9 +13,7 @@ import Documentation from './Pages/Documentation/Documentation';
 function App() {
   return (
     <>
-      <div className="fixed">
-        <Navbar />
-      </div>
+      <Navbar />
       <Routes>
         <Route path={ HOME_ROUTE } element={<Home />} />
         <Route path={ DASHBOARD_ROUTE } element={<Dashboard />} />

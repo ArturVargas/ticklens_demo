@@ -53,6 +53,7 @@ function Home() {
             DEVELOPERS.map(({developerName, developerTwitter, developerGit, picture})  => {
               return (
                 <DeveloperCard 
+                key={developerName}
                 developerName={developerName} 
                 developerTwitter={developerTwitter} 
                 developerGit={developerGit} 
