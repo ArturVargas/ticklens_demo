@@ -5,12 +5,16 @@
 }
 
 .content {
+  height: 300px;
+  width: 200px;
   text-align: center;
   position: relative;
   transition: all 2.25s;
   background-color: rgb(127, 204, 240);
   padding: 5em;
   transform-style: preserve-3d;
+  border-radius: 10px;
+  
 }
 
 .eventCard:hover .content {
@@ -27,6 +31,7 @@
   padding: 2em;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  border-radius: 20px;
 }
 
 .title {
@@ -35,7 +40,9 @@
 }
 
 .subtitle {
-  transform: translateZ(2rem);
+  font-size: 20px !important;
+  transform: translateZ(3rem);
+  color: black !important;
 }
 
 .back {
@@ -46,4 +53,8 @@
 .description {
   transform: translateZ(3rem);
   color: black !important;
+}
+
+.imageEvent {
+  width: 100%;
 }
